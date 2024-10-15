@@ -21,11 +21,13 @@ Route::get('tests/test', [ TestController::class, 'index' ]);
 
 // Route::resource('contacts', ContactFormController::class);
 
-Route::prefix('contacts')->middleware(['auth'])
+Route::prefix('contacts')
+->middleware(['auth'])
 ->controller(ContactFormController::class)
-->name('contacts')
+->name('contacts.')
 ->group(function(){
     Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
 });
 
 Route::get('/', function () {
