@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\ContactFormController;
+use App\Models\ContactForm;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,16 @@ use App\Http\Controllers\TestController;
 */
 
 Route::get('tests/test', [ TestController::class, 'index' ]);
+
+// Route::resource('contacts', ContactFormController::class);
+
+Route::prefix('contacts')->middleware(['auth'])
+->controller(ContactFormController::class)
+->name('contacts')
+->group(function(){
+    Route::get('/', 'index')->name('index');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
