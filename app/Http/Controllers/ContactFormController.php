@@ -72,7 +72,7 @@ class ContactFormController extends Controller
         if($contact->age === 4 ){ $age = '40歳〜49歳'; }
         if($contact->age === 5 ){ $age = '50歳〜59歳'; }
         if($contact->age === 6 ){ $age = '60歳〜'; }
-        
+
         return view('contacts.show', compact('contact', 'gender', 'age'));
     }
 
@@ -98,7 +98,17 @@ class ContactFormController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $contact = ContactForm::find($id);
+        $contact->name = $request->name;
+        $contact->title = $request->title;
+        $contact->email = $request->email;
+        $contact->url = $request->name;
+        $contact->gender = $request->gender;
+        $contact->age = $request->age;
+        $contact->contact = $request->contact;
+        $contact->save();
+
+        return to_route('contacts.index');
     }
 
     /**
