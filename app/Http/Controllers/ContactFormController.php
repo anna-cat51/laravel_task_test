@@ -19,10 +19,16 @@ class ContactFormController extends Controller
         // $contacts = ContactForm::select('id', 'name', 'title', 'created_at')
         // ->get();
 
-        $search = $request->search;
-
         // ページネーション対応
-        $contacts = ContactForm::select('id', 'name', 'title', 'created_at')
+        // $contacts = ContactForm::select('id', 'name', 'title', 'created_at')
+        // ->paginate(20);
+
+
+        // 検索対応
+        $search = $request->search;
+        $query = ContactForm::search($search);
+        
+        $contacts = $query->select('id', 'name', 'title', 'created_at')
         ->paginate(20);
 
         return view('contacts.index', compact('contacts'));
